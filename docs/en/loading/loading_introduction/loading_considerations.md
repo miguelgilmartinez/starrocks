@@ -76,3 +76,9 @@ You can configure the following [system variable](../../reference/System_variabl
 - `query_timeout`
 
   The query timeout duration. Unit: seconds. Value range: `1` to `259200`. Default value: `300`. This variable will act on all query statements in the current connection, as well as INSERT statements.
+
+### Some advices before loading big data packages
+
+- Remove materialized views. If you created any views on the table you are importing, remove them. This will make the ingestion task faster and could avoid some weird issues. Rebuild these materialized view after the ingestion is done.
+- Use SUBMIT TASK AS to wrap your ingestion process. This will avoid possible client disconennections and let the loading responsibility to the cluster.
+  
